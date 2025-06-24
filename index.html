@@ -1,0 +1,318 @@
+<html><head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="description" content="Can LLMs Detect and Refactor Code Clones? An Empirical Study">
+	<link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz|Droid+Sans" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" media="all" href="css/inland.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/paper.css">
+  <script type="text/javascript" src="js/external.js"></script>
+	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.scrollTo.js"></script>
+	<script type="text/javascript" src="js/template.js"></script>
+	<script type="text/javascript" src="js/backontop.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+
+
+	<title>Aider</title>
+</head>
+
+<body>
+<div id="wrapper960" class="clearfix">
+	<div id="header" class="clearfix">
+		<div id="sitetitle" class="clearfix">
+			<h1><a href="index.html">Aider</a></h1>
+		</div>
+
+		<nav2 id="stickynav">
+		<div class="verticalMenu">
+			<ul id="nav2">
+				<li><a href="#abstract" class="backontop">Abstract</a></li>
+				<li><a href="#experimentaldata" class="backontop">Experiment data</a></li>
+				<li><a href="#testresults" class="backontop">Testing results</a></li>
+				<li><a href="#tableandlisting" class="backontop">Tables and listings</a></li>
+			</ul>
+		</div>
+		</nav2>
+	</div>
+
+
+    <div id="content" class="clearfix shadow">
+		<div id="main" class="left">
+			<h2 id="abstract">Abstract</h2>
+			<p>
+				Code clones, or duplicated code segments, negatively impact software maintainability, readability, and consistency. Detecting and refactoring code clones is crucial for maintaining high-quality software. Recently, advancements in Artificial Intelligence (AI), particularly Large Language Models (LLMs), have provided new opportunities for enhancing clone detection and refactoring capabilities. Building upon these developments, our paper explores integrating Aider, a command-line AI assistant leveraging LLMs into AntiCopyPaster, an IntelliJ IDEA plugin designed for just-in-time code clone detection and refactoring. The study evaluates the performance of this integration. Our experiments involved testing Aider’s effectiveness across various clone types and JHotDraw project using five LLMs: Gemini 2.5 Pro, GPT-3.5, GPT-4o, DeepSeek-R1 and Claude 3.7 Sonnet. Results indicate that Gemini 2.5 Pro successfully detected clones effectively. However, for refactoring, 4 cases resulted in incomplete or ineffective refactoring. And there were 13 cases that did not follow the "Extract Method" refactoring. In contrast, GPT-3.5 demonstrated significant limitations, often failing to detect clones or producing unrelated outputs. GPT-4o showed strong capabilities on clone detection and refactoring. It detected all the clones and performed correct refactoring except 6 incomplete method extraction. DeepSeek-R1 detected all the clones, but it only performed 7 correct refactoring, along with 8 incomplete refactoring and 1 ineffective refactoring. It also created multiple new methods in 2 cases, and also in other 2 cases, it directly replace the cloned method with original method call. Claude 3.7 Sonnet successfully refactored 11 cloned. In other 9 cases, there were 6 incomplete refactoring. And it also had one case each for direct replacement with original method call and creating multiple new methods.
+Additionally, our study evaluated LLMs' capability for recommending meaningful method names for extracted methods. The results revealed that all models generally provided appropriate names. Overall, GPT-4o proposed the most similar names with the original ones. All the names were aligned with Java name conventions and followed camelCase format, and no any other instances of alternative naming formats such as PascalCase, snake\_case, or kebab-case were oberserved. Overall, integrating Aider with advanced LLMs into AntiCopyPaster provides developers choice \eman{new choice is ambiguous} \xing{added utilize LLMs}to utilize LLMs to do code clone detection, refactoring and name suggestion for extracted method.
+			</p>
+
+			<!--div class="bibtex">
+				<pre></pre>
+			</div-->
+			
+			<h2 id="experimentaldata">Experiment data</h2>
+			<p>
+				The JHotDraw project is used for the experiments in this paper. The project with mimic code clones is available for <a href="JHotDraw-v2 (1).zip_expanded.zip">download</a>
+				<br>
+				We mimic 20 clones in JHotDraw project, which can be found in the following table.
+			</p>
+				<table id="clonetbl" style="width: 500px; margin: auto">
+					<colgroup>
+						<col id="cloneid" class="cloneid">
+						<col id="clonetype" class="clonetype">
+						<col id="clonefile" class="clonefile">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>Class</th>
+							<th>Method</th>
+							<th>Clone Type</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr><td>DrawApplet</td><td>createAttributeChoices</td><td>Type 1(a)</td></tr>
+						<tr><td>FigureAttributeConstant</td><td>addConstant</td><td>Type 1(a)</td></tr>
+						<tr><td>DrawApplet</td><td>init</td><td>Type 1(a)</td></tr>
+						<tr><td>NothingApplet</td><td>createTools</td><td>Type 1(a)</td></tr>
+						<tr><td>CompositeFigureCreationTool</td><td>mouseDown</td><td>Type 1(b)</td></tr>
+						<tr><td>ChopDiamondConnector</td><td>chop</td><td>Type 1(b)</td></tr>
+						<tr><td>MiniMapDesktop</td><td>createLeftComponent</td><td>Type 1(b)</td></tr>
+						<tr><td>Animator</td><td>run</td><td>Type 1(b)</td></tr>
+						<tr><td>CTXWindowMenu</td><td>buildChildMenus</td><td>Type 1(c)</td></tr>
+						<tr><td>ColorMap</td><td>colorIndex</td><td>Type 1(c)</td></tr>
+						<tr><td>BouncingDrawing</td><td>animationStep</td><td>Type 1(c)</td></tr>
+						<tr><td>PertDependency</td><td>handleConnect</td><td>Type 1(c)</td></tr>
+						<tr><td>AutoscrollHelper</td><td>getAutoscrollInsets</td><td>Type 2(a)</td></tr>
+						<tr><td>Geom</td><td>direction</td><td>Type 2(a)</td></tr>
+						<tr><td>JHDDropTargetListener</td><td>dragOver</td><td>Type 2(a)</td></tr>
+						<tr><td>StandardLayouter</td><td>layout</td><td>Type 2(a)</td></tr>
+						<tr><td>LineConnection</td><td>basicMoveBy</td><td>Type 2(b)</td></tr>
+						<tr><td>TriangleFigure</td><td>rotate</td><td>Type 2(b)</td></tr>
+						<tr><td>SplitPaneDesktop</td><td>removeFromDesktop</td><td>Type 2(b)</td></tr>
+						<tr><td>Helper</td><td>getDrawingView</td><td>Type 2(b)</td></tr>
+					</tbody>
+				</table>
+			
+			
+	
+		
+			<h2 id="testresults">Testing Results</h2>
+			<p>
+				The results of clone detection and refactoring, name suggestions can be found in the following table.
+			</p>
+			<table id="resultstbl" style="width: 500px; margin: auto">
+				<colgroup>
+					<col id="tool" class="tool">
+					<col id="download">
+				</colgroup>
+				<caption>Testing results for JFreeChart</caption>
+					<tbody><tr>
+						<th width="50%">Models</th>
+						<th>Clone detection and refactoring</th>
+						<th>Name suggestions</th>
+					</tr>
+				</tbody>
+				<tbody>
+					<tr>
+						<td><b>JDeodorant</b></td>
+						<td><a href="detect_refactor_results/JDeodorant_results.xlsx">Download</a></td>
+						<td>N/A</td>
+					</tr>
+					<tr>
+						<td><b>AntiCopyPaster</b></td>
+						<td><a href="detect_refactor_results/AntiCopyPaster_results.xlsx">Download</a></td>
+						<td>N/A</td>
+					</tr>
+					<tr>
+						<td><b>Gemini 2.5 pro</b></td>
+						<td><a href="detect_refactor_results/Gemini-2.5-pro_results.xlsx">Download</a></td>
+						<td><a href="names_generated/Gemini_results.xlsx">Download</a></td>
+					</tr>
+					<tr>
+						<td><b>GPT-3.5</b></td>
+						<td><a href="detect_refactor_results/GPT-3.5_results.xlsx">Download</a></td>
+						<td><a href="names_generated/gpt_35_results.xlsx">Download</a></td>
+					</tr>
+					<tr>
+						<td><b>GPT-4o</b></td>
+						<td><a href="detect_refactor_results/GPT-3.5_results.xlsx">Download</a></td>
+						<td><a href="names_generated/gpt-4o_results.xlsx">Download</a></td>
+					</tr>
+					<tr>
+						<td><b>DeepSeek-R1</b></td>
+						<td><a href="detect_refactor_results/DeepSeek-R1_results.xlsx">Download</a></td>
+						<td><a href="names_generated/Deepseek-r1_results.xlsx">Download</a></td>
+					</tr>
+					<tr>
+						<td><b>Claude 3.7 Sonnet</b></td>
+						<td><a href="detect_refactor_results/Claude-3.7-Sonnet_results.xlsx">Download</a></td>
+						<td><a href="names_generated/Claude-3.7-Sonnet_results.xlsx">Download</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<h2 id="tableandlisting">Tables and listings</h2>
+			<h4 style="text-align: center;">Figure: Overview of methodology</h3>
+			<img src="figures/workflow_aider.png" alt="" style="display: block; margin: 0 auto; width: 100%;">
+			<h3>Listings</h3>
+			<h4>Ineffective refactoring example: Type-2</h4>
+			<pre><code class="language-java">Private void processFloatLoop(int n, InFunction<Float> termFunction, BiConsumer<Float, Float> fooCaller) {
+    float sum = 0; // C1
+    float prod = 1;
+    for (int i = 1; i <= n; i++) {
+        float term = termFunction.apply(i);
+        sum = sum + term;
+        prod = prod * term;
+        fooCaller.accept(sum, prod);
+    }
+}
+
+Private void processIntLoop(int n, IntUnaryOperator termFunction, BiConsumer<Integer, Integer> fooCaller) {
+    int sum = 0; // C1
+    int prod = 1;
+    for (int i = 1; i <= n; i++) {
+        int term = termFunction.apply(i);
+        sum = sum + term;
+        prod = prod * term;
+        fooCaller.accept(sum, prod);
+    }
+}
+				</code></pre>
+			<h4>Ineffective refactoring example: Type-4</h4>
+			<pre><code class="language-java">private void calculateLoop(int n, int startValue, OperationOrder order) {
+    float sum = 0; // C1
+    float prod = 1;
+    for (int i = startValue; i <= n; i++) {
+        switch(order) {
+            case SUM_PROD_FOO:
+                sum = sum + i;
+                prod = prod * i;
+                foo(sum, prod);
+                break;
+            case PROD_SUM_FOO:
+                prod = prod * i;
+                sum = sum + i;
+                foo(sum, prod);
+                break;
+            case SUM_FOO_PROD:
+                sum = sum + i;
+                foo(sum, prod);
+                prod = prod * i;
+                break;
+        }
+    }
+}</code></pre>
+	<h4>Direct clone removel example</h4>
+	<pre><code class="language-java">static public int direction(int x1, int y1, int x2, int y2) {
+    int direction = 0;
+    int vx = x2 - x1;
+    int vy = y2 - y1;
+
+    if (vy < vx && vx > -vy) {
+        direction = EAST;
+    }
+    else if (vy > vx && vy > -vx) {
+        direction = NORTH;
+    }
+    else if (vx < vy && vx < -vy) {
+        direction = WEST;
+    }
+    else {
+        direction = SOUTH;
+    }
+    return direction;
+}
+
+static public int direction_Cloned(int x1, int y1, int x2, int y2) {
+    int d = 0;
+    int x = x2 - x1;
+    int y = y2 - y1;
+
+    if (y < x && x > -y) {
+        d = EAST;
+    }
+    else if (y > x && y > -x) {
+        d = NORTH;
+    }
+    else if (x < y && x < -y) {
+        d = WEST;
+    }
+    else {
+        d = SOUTH;
+    }
+    return d;
+}
+\end{lstlisting}</code></pre>
+		<h4>Call-based clone subtitution example</h4>
+		<pre><code class="language-java">public void init() {
+    createIconkit();
+    getVersionControlStrategy().assertCompatibleVersion();
+    setUndoManager(new UndoManager());
+
+    getContentPane().setLayout(new BorderLayout());
+
+    fView = createDrawingView();
+
+    JPanel attributes = createAttributesPanel();
+    createAttributeChoices(attributes);
+    getContentPane().add("North", attributes);
+
+    JPanel toolPanel = createToolPalette();
+    createTools(toolPanel);
+    getContentPane().add("West", toolPanel);
+
+    getContentPane().add("Center", (Component)view());
+    JPanel buttonPalette = createButtonPanel();
+    createButtons(buttonPalette);
+    getContentPane().add("South", buttonPalette);
+
+    initDrawing();
+    // JFC should have its own internal double buffering...
+    //setBufferedDisplayUpdate();
+    setupAttributes();
+}
+
+public void init_Cloned() {
+        init();
+}</code></pre>
+	<h4>Fragmentation of logic example</h4>
+	<pre><code class="language-java">void buildChildMenus() { 
+    JInternalFrame[] array = desktop.getAllFrames();
+    updateWindowCommands(array.length > 0);
+    
+    if (array.length == 0) {
+        return;
+    }
+    
+    addSeparator();
+    createChildMenuItems(array);
+}
+
+private void updateWindowCommands(boolean enabled) {
+    cascadeCommand.setEnabled(enabled);
+    tileHCommand.setEnabled(enabled);
+    tileVCommand.setEnabled(enabled);
+    arrangeHCommand.setEnabled(enabled);
+    arrangeVCommand.setEnabled(enabled);
+}
+
+private void createChildMenuItems(JInternalFrame[] frames) {
+    for (int i = 0; i < frames.length; i++) {
+        ChildMenuItem menu = new ChildMenuItem(frames[i]);
+        menu.setState(i == 0);
+        menu.addActionListener(createChildMenuItemListener());
+        menu.setIcon(frames[i].getFrameIcon());
+        add(menu);
+    }
+}</code></pre>
+		</div>
+	</div>
+
+	<div id="footer" class="shadow">
+		<!-- <script type="text/javascript">footer();</script>		 -->
+		<p>Copyright is hidden due to the double-blind review| <a href="http://andreasviklund.com/templates/inland/">Template design</a> by <a href="http://andreasviklund.com/">andreasviklund.com</a></p>
+	</div>
+</div>
+
+
+
+</body></html>
