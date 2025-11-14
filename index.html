@@ -50,8 +50,34 @@
 		<div id="main" class="left">
 			<h2 id="abstract">Abstract</h2>
 			<p>
-				Code clones, or duplicated code segments, negatively impact software maintainability, readability, and consistency. Detecting and refactoring code clones is crucial for maintaining high-quality software. Recently, advancements in Artificial Intelligence (AI), particularly Large Language Models (LLMs), have provided new opportunities for enhancing clone detection and refactoring capabilities. Building upon these developments, our paper explores integrating Aider, a command-line AI assistant leveraging LLMs into AntiCopyPaster, an IntelliJ IDEA plugin designed for just-in-time code clone detection and refactoring. The study evaluates the performance of this integration. Our experiments involved testing Aider’s effectiveness across various clone types and JHotDraw project using five LLMs: Gemini 2.5 Pro, GPT-3.5, GPT-4o, DeepSeek-R1 and Claude 3.7 Sonnet. Results indicate that Gemini 2.5 Pro successfully detected clones effectively. However, for refactoring, 4 cases resulted in incomplete or ineffective refactoring. And there were 13 cases that did not follow the "Extract Method" refactoring. In contrast, GPT-3.5 demonstrated significant limitations, often failing to detect clones or producing unrelated outputs. GPT-4o showed strong capabilities on clone detection and refactoring. It detected all the clones and performed correct refactoring except 6 incomplete method extraction. DeepSeek-R1 detected all the clones, but it only performed 7 correct refactoring, along with 8 incomplete refactoring and 1 ineffective refactoring. It also created multiple new methods in 2 cases, and also in other 2 cases, it directly replace the cloned method with original method call. Claude 3.7 Sonnet successfully refactored 11 cloned. In other 9 cases, there were 6 incomplete refactoring. And it also had one case each for direct replacement with original method call and creating multiple new methods.
-Additionally, our study evaluated LLMs' capability for recommending meaningful method names for extracted methods. The results revealed that all models generally provided appropriate names. Overall, GPT-4o proposed the most similar names with the original ones. All the names were aligned with Java name conventions and followed camelCase format, and no any other instances of alternative naming formats such as PascalCase, snake\_case, or kebab-case were oberserved. Overall, integrating Aider with advanced LLMs into AntiCopyPaster provides developers choice \eman{new choice is ambiguous} \xing{added utilize LLMs}to utilize LLMs to do code clone detection, refactoring and name suggestion for extracted method.
+				Code clones, or duplicated code parts, make software harder to
+maintain, read, and keep consistent. Finding and fixing code clones
+is important for keeping software quality high. Recently, improve-
+ments in Artificial Intelligence (AI), especially Large Language
+Models (LLMs), have created new ways to improve how we name
+methods during refactoring. Building on these improvements, our
+paper looks at Aider, a command-line AI assistant that uses LLMs to
+suggest method names during refactoring. Our experiments tested
+Aider’s ability to suggest good method names on the JHotDraw
+project using seven LLMs: Gemini 2.5 Pro, GPT-3.5, GPT-4o, GPT-5,
+DeepSeek-R1, Claude 3.7 Sonnet, and Claude Opus 4.1. We tested
+two ways: (1) comparing single method names from refactoring,
+and (2) asking each model to suggest 10 names for each method. The
+results show that different models perform differently at naming
+tasks. GPT-4o did the best, getting the highest similarity scores in
+7 out of 20 cases for single names. GPT-5 also did well, getting the
+highest scores in 5 cases when comparing all 10 names. DeepSeek-
+R1 got the highest scores in 6 cases. Claude Opus 4.1 was especially
+good at naming UI and layout methods, with the highest scores
+in 2 cases. Gemini 2.5 Pro had mixed results with highest scores
+in 4 cases. Claude 3.7 Sonnet created good names but never got
+the highest score. GPT-3.5 had the most problems, often creating
+placeholder names with "temp" in them. All models followed Java’s
+camelCase naming style. No models used PascalCase, snake_case,
+or kebab-case. GPT-4o, GPT-5, and DeepSeek-R1 were the best at
+creating names that make sense and follow naming rules. Overall,
+Aider with advanced LLMs gives developers a choice to use LLMs
+for suggesting names for extracted methods.
 			</p>
 
 			<!--div class="bibtex">
@@ -147,6 +173,11 @@ Additionally, our study evaluated LLMs' capability for recommending meaningful m
 						<td><a href="names_generated/gpt-4o_results.xlsx">Download</a></td>
 					</tr>
 					<tr>
+						<td><b>GPT-5</b></td>
+						<td><a href="detect_refactor_results/GPT-5_results.xlsx">Download</a></td>
+						<td><a href="names_generated/gpt_5_results.xlsx">Download</a></td>
+					</tr>
+					<tr>
 						<td><b>DeepSeek-R1</b></td>
 						<td><a href="detect_refactor_results/DeepSeek-R1_results.xlsx">Download</a></td>
 						<td><a href="names_generated/Deepseek-r1_results.xlsx">Download</a></td>
@@ -156,13 +187,18 @@ Additionally, our study evaluated LLMs' capability for recommending meaningful m
 						<td><a href="detect_refactor_results/Claude-3.7-Sonnet_results.xlsx">Download</a></td>
 						<td><a href="names_generated/Claude-3.7-Sonnet_results.xlsx">Download</a></td>
 					</tr>
+					<tr>
+						<td><b>Claude Opus 4.1</b></td>
+						<td><a href="detect_refactor_results/claude_opus_results.xlsx">Download</a></td>
+						<td><a href="names_generated/claude_opus_results.xlsx">Download</a></td>
+					</tr>
 				</tbody>
 			</table>
 			<h2 id="tableandlisting">Tables and listings</h2>
 			<h4 style="text-align: center;">Figure: Overview of methodology</h3>
 			<img src="figures/workflow_aider.png" alt="" style="display: block; margin: 0 auto; width: 100%;">
-			<h3>Listings</h3>
-			<h4>Ineffective refactoring example: Type-2</h4>
+			<!-- <h3>Listings</h3> -->
+			<!-- <h4>Ineffective refactoring example: Type-2</h4>
 			<pre><code class="language-java">Private void processFloatLoop(int n, InFunction<Float> termFunction, BiConsumer<Float, Float> fooCaller) {
     float sum = 0; // C1
     float prod = 1;
@@ -313,7 +349,7 @@ private void createChildMenuItems(JInternalFrame[] frames) {
     }
 }</code></pre>
 		</div>
-	</div>
+	</div> -->
 
 	<div id="footer" class="shadow">
 		<!-- <script type="text/javascript">footer();</script>		 -->
