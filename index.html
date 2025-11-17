@@ -16,7 +16,7 @@ Identification and Automated Refactoring">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
 
 
-	<title>Aider</title>
+	<title>LLMs Name Suggestion</title>
 </head>
 
 <body>
@@ -51,34 +51,33 @@ Identification and Automated Refactoring">
 		<div id="main" class="left">
 			<h2 id="abstract">Abstract</h2>
 			<p>
-				Code clones, or duplicated code parts, make software harder to
-maintain, read, and keep consistent. Finding and fixing code clones
-is important for keeping software quality high. Recently, improve-
-ments in Artificial Intelligence (AI), especially Large Language
-Models (LLMs), have created new ways to improve how we name
-methods during refactoring. Building on these improvements, our
-paper looks at Aider, a command-line AI assistant that uses LLMs to
-suggest method names during refactoring. Our experiments tested
-Aider’s ability to suggest good method names on the JHotDraw
-project using seven LLMs: Gemini 2.5 Pro, GPT-3.5, GPT-4o, GPT-5,
-DeepSeek-R1, Claude 3.7 Sonnet, and Claude Opus 4.1. We tested
-two ways: (1) comparing single method names from refactoring,
-and (2) asking each model to suggest 10 names for each method. The
-results show that different models perform differently at naming
-tasks. GPT-4o did the best, getting the highest similarity scores in
-7 out of 20 cases for single names. GPT-5 also did well, getting the
-highest scores in 5 cases when comparing all 10 names. DeepSeek-
-R1 got the highest scores in 6 cases. Claude Opus 4.1 was especially
-good at naming UI and layout methods, with the highest scores
-in 2 cases. Gemini 2.5 Pro had mixed results with highest scores
-in 4 cases. Claude 3.7 Sonnet created good names but never got
-the highest score. GPT-3.5 had the most problems, often creating
-placeholder names with "temp" in them. All models followed Java’s
-camelCase naming style. No models used PascalCase, snake_case,
-or kebab-case. GPT-4o, GPT-5, and DeepSeek-R1 were the best at
-creating names that make sense and follow naming rules. Overall,
-Aider with advanced LLMs gives developers a choice to use LLMs
-for suggesting names for extracted methods.
+				Choosing meaningful method names is essential for code readability
+and maintainability. When developers write or refactor code, select-
+ing appropriate names that clearly convey the method’s purpose
+can be challenging and time-consuming. Recently, improvements
+in Artificial Intelligence (AI), especially Large Language Models
+(LLMs), have created new opportunities to assist developers with
+method naming. Building on these improvements, our experiments
+tested LLMs’ ability to suggest good method names on the JHot-
+Draw project using seven LLMs: Gemini 2.5 Pro, GPT-3.5, GPT-4o,
+GPT-5, DeepSeek-R1, Claude 3.7 Sonnet, and Claude Opus 4.1. We
+tested two ways: (1) comparing single method names, and (2) ask-
+ing each model to suggest 10 names for each method. The results
+show that different models perform differently at naming tasks.
+GPT-4o got the highest similarity scores with original methods in
+9 out of 20 cases for single names. GPT-5 also did well, getting the
+highest similarity scores in 6 cases when comparing all 10 names.
+DeepSeek-R1 got the highest similarity scores in 2 cases. Claude
+Opus 4.1 was especially good at naming UI and layout methods,
+with the highest scores in 6 cases. Gemini 2.5 Pro had mixed re-
+sults with highest scores in 2 cases. Claude 3.7 Sonnet created good
+names but never got the highest score. GPT-3.5 had the most prob-
+lems, often creating placeholder names with "temp" in them. All
+models followed Java’s camelCase naming style. No models used
+PascalCase, snake_case, or kebab-case. GPT-4o, GPT-5, and Claude
+Opus 4.1 were the best at creating names that make sense and follow
+naming rules. Overall, advanced LLMs gives developers a choice to
+use them for suggesting names.
 			</p>
 
 			<!--div class="bibtex">
@@ -143,21 +142,11 @@ for suggesting names for extracted methods.
 				<caption>Testing results for JFreeChart</caption>
 					<tbody><tr>
 						<th width="50%">Models</th>
-						<th>Clone detection and refactoring</th>
-						<th>Name suggestions</th>
+						<th>Single name scenario</th>
+						<th>All 10 names suggestions</th>
 					</tr>
 				</tbody>
 				<tbody>
-					<tr>
-						<td><b>JDeodorant</b></td>
-						<td><a href="detect_refactor_results/JDeodorant_results.xlsx">Download</a></td>
-						<td>N/A</td>
-					</tr>
-					<tr>
-						<td><b>AntiCopyPaster</b></td>
-						<td><a href="detect_refactor_results/AntiCopyPaster_results.xlsx">Download</a></td>
-						<td>N/A</td>
-					</tr>
 					<tr>
 						<td><b>Gemini 2.5 pro</b></td>
 						<td><a href="detect_refactor_results/Gemini-2.5-pro_results.xlsx">Download</a></td>
